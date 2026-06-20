@@ -53,3 +53,27 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Imágenes de disco (Las que generarán con Cubic y QEMU)
+*.iso
+*.img
+*.vdi
+*.vmdk
+
+# Archivos comprimidos pesados
+*.tar.gz
+*.zip
+*.rar
+
+# Archivos objeto y ejecutables de C/Ensamblador (Parte del Kernel)
+*.o
+*.bin
+*.elf
+*.out
+
+# Logs del sistema o del laboratorio
+*.log
+
+# Archivos ocultos del sistema operativo (Opcional pero recomendado)
+.DS_Store
+Thumbs.db
