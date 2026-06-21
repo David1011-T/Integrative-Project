@@ -219,7 +219,3 @@ drwxr-xr-x    1 0        0            4096 Jun 21 01:00 backup
 - **WhatWeb** — installed from the official repository (https://github.com/urbanadventurer/WhatWeb), run with `ruby whatweb` due to an incomplete `apt` package installation in the Codespace environment.
 - **dirsearch** — installed from https://github.com/maurosoria/dirsearch, run with `python3 dirsearch.py`.
 - **curl** — used as a lightweight FTP/HTTP client, with no additional dependencies.
-
-## Notes on the Execution Environment
-
-The lab was deployed inside a GitHub Codespace (Ubuntu 24.04.4 LTS) instead of a traditional Kali VM. This does not affect the validity of the results: Docker, the `br_public`/`br_corporate` networks, and the lab's 8 containers behave identically regardless of the underlying host, as long as the Docker engine has privileges to create custom network bridges (confirmed via `ip addr | grep "br_"`).
