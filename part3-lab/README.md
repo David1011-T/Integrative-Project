@@ -1,5 +1,8 @@
 # PART 3.A — Laboratory Deployment & Architecture Documentation
 
+# Screenshot 1: Environment Deployment & Health Check
+Verification that the lab infrastructure compiled cleanly and the automated sanity test returned the active state
+
 ![alt text](image1.png)
 ![alt text](image2.png)
 
@@ -16,6 +19,8 @@
 | **c-redis-01** | 'c-redis-01' | 'br_corporate' | Corporate ('10.1.0.0/24') | In-Memory Key-Value Cache (Port 6379) |
 | **c-backup-01** | 'c-backup-01' | 'br_corporate' | Corporate ('10.1.0.0/24') | Internal Data Backup Server |
 
+# Screenshot 2: Active Docker Containers Lifecycle
+Live verification showing all 8 required sandboxed target containers (public and corporate) running concurrently
 
 ![alt text](image3.png)
 
@@ -39,9 +44,13 @@ Based on the virtual interfaces ('veth') and network bridges validated on the Ub
                  ├── (veth) ─── [ c-db-02 ] ──── IP: 10.1.0.35
                  ├── (veth) ─── [ c-redis-01 ] ── IP: 10.1.0.40
                  └── (veth) ─── [ c-backup-01 ] ─ IP: 10.1.0.50
+
+# Screenshot 3: Virtual Network Interface Routing
+Evidence of the decoupled network infrastructure displaying the host-only virtual bridges ('br_public' and 'br_corporate') with their respective IP subnets assigned
+
 ![alt text](image4.png)
 
-### 4. Interactive Container Access Verification (`docker exec`)
+# 4. Interactive Container Access Verification (`docker exec`)
 
 To validate local infrastructure access, communication hooks, and privilege boundaries, a live terminal session was initiated on the primary web instance (`p-web-01`).
 
@@ -72,4 +81,8 @@ drwxr-xr-x 2 root root 4096 Jun 20 17:52 uploads
 # Severing session link and returning to Ubuntu host environment
 root@p-web-01:/app# exit
 exit
+
+# Screenshot 4: Target Namespace Interactive Session
+Validation of shell spawning inside the 'p-web-01' application instance executing baseline auditing
+
 ![alt text](image5.png)
