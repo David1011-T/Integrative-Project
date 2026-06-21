@@ -1,5 +1,8 @@
 # PART 3.A — Laboratory Deployment & Architecture Documentation
 
+![alt text](image1.png)
+![alt text](image2.png)
+
 # 1. Infrastructure Architecture Table
 
 | Container Name | Full Network Hostname | Base Interface | Segment / Logical Subnet | Technical Role / Purpose |
@@ -13,6 +16,8 @@
 | **c-redis-01** | 'c-redis-01' | 'br_corporate' | Corporate ('10.1.0.0/24') | In-Memory Key-Value Cache (Port 6379) |
 | **c-backup-01** | 'c-backup-01' | 'br_corporate' | Corporate ('10.1.0.0/24') | Internal Data Backup Server |
 
+
+![alt text](image3.png)
 
 # 2. Isolated Dual-Network Topology Diagrams
 
@@ -34,6 +39,7 @@ Based on the virtual interfaces ('veth') and network bridges validated on the Ub
                  ├── (veth) ─── [ c-db-02 ] ──── IP: 10.1.0.35
                  ├── (veth) ─── [ c-redis-01 ] ── IP: 10.1.0.40
                  └── (veth) ─── [ c-backup-01 ] ─ IP: 10.1.0.50
+![alt text](image4.png)
 
 ### 4. Interactive Container Access Verification (`docker exec`)
 
@@ -66,3 +72,4 @@ drwxr-xr-x 2 root root 4096 Jun 20 17:52 uploads
 # Severing session link and returning to Ubuntu host environment
 root@p-web-01:/app# exit
 exit
+![alt text](image5.png)
