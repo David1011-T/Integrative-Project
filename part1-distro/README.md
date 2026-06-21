@@ -32,3 +32,5 @@ Checksum
 MD5 hash de C:\Users\Iván\Downloads\ubuntu-26.04.0-Cubic-UIDE-desktop-amd64.iso:
 326aab2e7d99cb4d8fc89132f80ce699
 CertUtil: -hashfile comando completado correctamente.
+link ISO
+https://drive.google.com/file/d/1etRYA0F1LMMYhhJviTXJ5kUaprb0nhM2/view?usp=sharing
