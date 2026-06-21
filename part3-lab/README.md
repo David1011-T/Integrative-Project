@@ -3,6 +3,7 @@
 # 1. Infrastructure Architecture Table
 
 | Container Name | Full Network Hostname | Base Interface | Segment / Logical Subnet | Technical Role / Purpose |
+| --- | --- | --- | --- | --- |
 | **p-web-01** | 'p-web-01.acme-infinity-servers.com' | 'br_public' | Public ('172.16.10.0/24') | Main Web Server (Flask/Python - Port 80) |
 | **p-web-02** | 'p-web-02' | 'br_public' | Public ('172.16.10.0/24') | Secondary Public Web Server |
 | **p-ftp-01** | 'p-ftp-01' | 'br_public' | Public ('172.16.10.0/24') | Public FTP File Repository |
@@ -11,6 +12,7 @@
 | **c-db-02** | 'c-db-02' | 'br_corporate' | Corporate ('10.1.0.0/24') | Secondary MySQL Database (Port 3306) |
 | **c-redis-01** | 'c-redis-01' | 'br_corporate' | Corporate ('10.1.0.0/24') | In-Memory Key-Value Cache (Port 6379) |
 | **c-backup-01** | 'c-backup-01' | 'br_corporate' | Corporate ('10.1.0.0/24') | Internal Data Backup Server |
+
 
 # 2. Isolated Dual-Network Topology Diagrams
 
