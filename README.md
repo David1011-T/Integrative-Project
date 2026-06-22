@@ -98,7 +98,7 @@ The transition from the bootloader to the 64-bit Long Mode requires configuring 
 
 # PART 3.A — Laboratory Deployment & Architecture Documentation
 
-# 1. Infrastructure Architecture Table
+## 1. Infrastructure Architecture Table
 
 | Container Name | Full Network Hostname | Base Interface | Segment / Logical Subnet | Technical Role / Purpose |
 | --- | --- | --- | --- | --- |
@@ -112,11 +112,11 @@ The transition from the bootloader to the 64-bit Long Mode requires configuring 
 | **c-backup-01** | 'c-backup-01' | 'br_corporate' | Corporate ('10.1.0.0/24') | Internal Data Backup Server |
 
 
-# 2. Isolated Dual-Network Topology Diagrams
+## 2. Isolated Dual-Network Topology Diagrams
 
 Based on the virtual interfaces ('veth') and network bridges validated on the Ubuntu host engine, the environment is strictly split into two independent Docker-managed segments:
 
-# DIAGRAM A: Public Network Segment
+## DIAGRAM A: Public Network Segment
 
   [ Ubuntu Host Interface: br_public ] ─── IP: 172.16.10.1 (Gateway)
                  │
@@ -125,7 +125,7 @@ Based on the virtual interfaces ('veth') and network bridges validated on the Ub
                  ├── (veth) ─── [ p-ftp-01 ] ─── IP: 172.16.10.30
                  └── (veth) ─── [ p-jumpbox-01 ] ── IP: 172.16.10.40
 
-# DIAGRAM B: Corporate Network Segment
+## DIAGRAM B: Corporate Network Segment
 [ Ubuntu Host Interface: br_corporate ] ─── IP: 10.1.0.1 (Gateway)
                  │
                  ├── (veth) ─── [ c-db-01 ] ──── IP: 10.1.0.30
@@ -133,22 +133,22 @@ Based on the virtual interfaces ('veth') and network bridges validated on the Ub
                  ├── (veth) ─── [ c-redis-01 ] ── IP: 10.1.0.40
                  └── (veth) ─── [ c-backup-01 ] ─ IP: 10.1.0.50
 
-### 4. Interactive Container Access Verification (`docker exec`)
+## 3. Interactive Container Access Verification (`docker exec`)
 
 To validate local infrastructure access, communication hooks, and privilege boundaries, a live terminal session was initiated on the primary web instance (`p-web-01`).
 
-# Executing interactive terminal routing to p-web-01
+## Executing interactive terminal routing to p-web-01
 andres@andres-VirtualBox:~/Black-Hat-Bash/lab$ sudo docker exec -it p-web-01 bash
 
-# Auditing user context assignment (Expected: root lifecycle)
+## Auditing user context assignment (Expected: root lifecycle)
 root@p-web-01:/app# whoami
 root
 
-# Validating Internal FQDN resolution within the network bridge
+## Validating Internal FQDN resolution within the network bridge
 root@p-web-01:/app# hostname
 p-web-01.acme-infinity-servers.com
 
-# Inspecting internal runtime directory mapping and application structures
+## Inspecting internal runtime directory mapping and application structures
 root@p-web-01:/app# ls -la
 total 40
 drwxr-xr-x 1 root root 4096 Jun 20 17:54 .
@@ -161,15 +161,15 @@ drwxr-xr-x 2 root root 4096 Jun 20 17:33 static
 -rw-rw-r-- 1 root root  433 Jun 20 17:33 upload.html
 drwxr-xr-x 2 root root 4096 Jun 20 17:52 uploads
 
-# Severing session link and returning to Ubuntu host environment
+### Severing session link and returning to Ubuntu host environment
 root@p-web-01:/app# exit
 exit
 
 ![alt text](image3.png)
-![alt text](image3.1.png)
 ![alt text](image3.2.png)
 ![alt text](image3.3.png)
 ![alt text](image3.4.png)
+![alt text](image3.5.png)
 
 
 # Part 3.B — Ethical Hacking Techniques 
