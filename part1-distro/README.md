@@ -27,3 +27,10 @@ Modification: The default BitTorrent client (`transmission-gtk`, `transmission-c
 *Technical Justification: The system boots with the dark theme (`color-scheme='prefer-dark'`), the `Yaru-dark` theme, and the dock positioned at the bottom of the screen. This is not a simple temporary user-level adjustment, but rather an injection of static configuration into the OS's graphical core. The goal is to mitigate eye strain for developers from the moment of booting in Live CD sessions or clean installations.
 ![alt text](image-5.png)
 ![alt text](image-6.png)
+
+Checksum
+MD5 hash de C:\Users\Iván\Downloads\ubuntu-26.04.0-Cubic-UIDE-desktop-amd64.iso:
+326aab2e7d99cb4d8fc89132f80ce699
+CertUtil: -hashfile comando completado correctamente.
+link ISO
+https://drive.google.com/file/d/1etRYA0F1LMMYhhJviTXJ5kUaprb0nhM2/view?usp=sharing

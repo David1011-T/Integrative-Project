@@ -1,101 +1,3 @@
-# PART 1 - Build your distro with Cubic
-
-### System Base
-Base Operating System: Ubuntu 26.04 LTS (Resolute)
-Building Tool: Cubic (Custom Ubuntu ISO Creator)
-Compression Format: `.xz` (Optimized to drastically reduce the final image size)
-
-Applied Modifications and Technical Justifications
-
-## 1. Replacement of Free Software (Download Management and Browsing)
-Modification: The default BitTorrent client (`transmission-gtk`, `transmission-common`) was removed and replaced with `qbittorrent`. Additionally, `epiphany-browser` was installed as the system's web browser.
-![alt text](image-1.png)
-![alt text](image-1.1.png)
-![alt text](image-1.2.png)
-
-*Technical Justification: `qBittorrent` offers an integrated search engine and improved P2P connection management, ideal for academic environments where downloading large ISO images is required. Meanwhile, `Epiphany` (GNOME Web) ensures smooth and integrated browsing with the desktop environment without the high RAM consumption of heavier browsers.
-
-## 2. Persistent Development Environment (Neovim in Skeleton)
-*Modification:** Installing `neovim` and deploying the advanced configuration `kickstart.nvim` directly in the system's skeleton directory (`/etc/skel/.config/nvim/`).
-
-*Technical Justification: This provides the operating system with a highly efficient, ready-to-use, terminal-based Integrated Development Environment (IDE) (preparing the groundwork for future builds). By placing this configuration in `/etc/skel`, absolute persistence is guaranteed; any new user created on the system will automatically inherit these tools in their `/home` directory from their first login.
-![alt text](image-1.3.png)
-![alt text](image-1.4.png)
-
-
-## 3. User Interface and Ergonomics (Modification of `gschema`)
-*Modification: Overwriting the structural variables of the GNOME environment using the file `/usr/share/glib-2.0/schemas/99_uide_custom.gschema.override` and subsequently compiling the system schemas.
-
-*Technical Justification: The system boots with the dark theme (`color-scheme='prefer-dark'`), the `Yaru-dark` theme, and the dock positioned at the bottom of the screen. This is not a simple temporary user-level adjustment, but rather an injection of static configuration into the OS's graphical core. The goal is to mitigate eye strain for developers from the moment of booting in Live CD sessions or clean installations.
-![alt text](image-1.5.png)
-![alt text](image-1.6.png)
-
-# PART 2 - Build a 64-bit kernel
-
-## Episode 1
-![alt text](image-2.2.png)
-![alt text](image-2.3.png)
-![alt text](image-2.4.png)
-![alt text](image-2.5.png)
-![alt text](image-2.6.png)
-![alt text](image-2.7.png)
-![alt text](image-2.8.png)
-![alt text](image-2.1.png)
-
-## Episode 2
-![alt text](image-2.9.png)
-![alt text](image-2.10.png)
-![alt text](image-2.11.png)
-![alt text](image-2.12.png)
-![alt text](image-2.png)
-
-## 1. Build Environment & Toolchain Architecture
-
-To ensure a reproducible compilation independent of the host OS, the kernel was built using an isolated Docker container equipped with a specialized cross-compiler toolchain.
-
-| Component | Technology / Tool | Technical Role / Purpose |
-| --- | --- | --- |
-| **Build Environment** | Docker (`myos-buildenv`) | Containerized sandbox holding the GCC cross-compiler, NASM, and XORRISO. |
-| **Boot Specification**| Multiboot2 | Standardized header (`header.asm`) allowing GRUB to recognize the OS. |
-| **Assembler** | NASM | Low-level hardware initialization, CPUID checks, and GDT configuration. |
-| **Compiler (C)** | `x86_64-elf-gcc` | Compiling the VGA driver and main kernel logic (`-ffreestanding`). |
-| **Linker** | `x86_64-elf-ld` | Merging `.o` files into a single `kernel.bin` based on `linker.ld` memory layout. |
-| **ISO Generator** | `grub-mkrescue` | Repackaging the kernel binary into a bootable ISO image. |
-| **Emulation** | VirtualBox / QEMU | Hardware virtualization testing targeting `x86_64` architecture. |
-
----
-
-## 2. Kernel Boot Flow & Memory Topology Diagram
-
-The transition from the bootloader to the 64-bit Long Mode requires configuring identity-mapped Huge Pages (2MB) and defining a 64-bit Global Descriptor Table (GDT).
-
-### DIAGRAM: Execution Pipeline (32-bit Protected Mode to 64-bit Long Mode)
-```text
-  [ BIOS / UEFI ] ─── Hardware Initialization
-         │
-         ▼
-  [ GRUB Bootloader ] ─── Reads Multiboot2 Header (`header.asm`)
-         │
-         ▼
-  [ 32-bit Entry (`main.asm`) ] 
-         ├── 1. Stack Memory Allocation
-         ├── 2. CPUID & Multiboot Validation
-         ├── 3. Page Tables Setup (Identity map first 1GB via L2/L3/L4)
-         └── 4. Load 64-bit GDT (`lgdt [gdt64.pointer]`)
-         │
-         ▼
-  [ 64-bit Jump (`main64.asm`) ] ─── `jmp gdt64.code_segment:long_mode_start`
-         ├── 1. Modify old main.asm to more complex code for 64 bit
-         └── 2. Clear old data segment registers
-         └── 3. Call C Kernel (`call kernel_main`)
-         │
-         ▼
-  [ C Kernel Main (`main.c`) ] ─── Hardware interaction logic
-         └── 1. Access VGA Text Buffer directly at Memory `0xb8000`
-         └── 2. Clear screen and print custom OS string.
-```
-# PART 3 - Stand up and attack the Black Hat Bash lab
-
 # PART 3.A — Laboratory Deployment & Architecture Documentation
 
 # 1. Infrastructure Architecture Table
@@ -165,14 +67,12 @@ drwxr-xr-x 2 root root 4096 Jun 20 17:52 uploads
 root@p-web-01:/app# exit
 exit
 
-![alt text](image3.png)
-![alt text](image3.1.png)
-![alt text](image3.2.png)
-![alt text](image3.3.png)
-![alt text](image3.4.png)
 
 
-# Part 3.B — Ethical Hacking Techniques 
+
+
+
+## Part 3.B — Ethical Hacking Techniques 
 
 Two complementary techniques were executed against the public-network hosts, following a realistic reconnaissance flow: technology fingerprinting → path enumeration → weak/default credential verification.
 
